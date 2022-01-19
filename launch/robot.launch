@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- <arg name="robot_ip" default="172.16.0.2"/> -->
+    <!-- <arg name="load_gripper" default="True"/> -->
+
+    <!-- CONTROLLER -->
+    <!-- <include file="$(find franka_control)/launch/franka_control.launch"> -->
+        <!-- <arg name="robot_ip" value="$(arg robot_ip)"/> -->
+        <!-- <arg name="load_gripper" value="$(arg load_gripper)" /> -->
+    <!-- </include> -->
+
+    <!-- MOVE IT -->
+    <!-- <include file="$(find panda_moveit_config)/launch/panda_moveit.launch" /> -->
+
+    <!-- RVIZ -->
+    <!-- <include file="$(find panda_moveit_config)/launch/moveit_rviz.launch" /> -->
+
+    <!-- CAMERA -->
+    <node name="realsense_camera" pkg="PRI_dataset" type="realsense_camera.py" output="screen"/>
+
+    <!-- Ṣcripts -->
+    <!-- <node pkg="robo_pick" type="find_mushrooms.py" name="find_mushrooms"/> -->
+</launch>
