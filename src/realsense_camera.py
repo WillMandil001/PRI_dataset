@@ -52,8 +52,12 @@ def main():
         depth_image = np.asanyarray(depth_frame.get_data())
         color_image = np.asanyarray(color_frame.get_data())
 
-        ros_color_image = bridge.cv2_to_imgmsg(np.array(color_image), "bgr8")
-        ros_depth_image = bridge.cv2_to_imgmsg(np.array(depth_image), "passthrough")
+        resized_color_image = cv2.resize(np.array(color_image), (64,64), interpolation=cv2.INTER_AREA)
+        resized_depth_image = cv2.resize(np.array(depth_image), (64,64), interpolation=cv2.INTER_AREA)
+
+        ros_color_image = bridge.cv2_to_imgmsg(np.array(resized_color_image), "bgr8")
+        ros_depth_image = bridge.cv2_to_imgmsg(np.array(resized_depth_image), "passthrough")
+
         ros_color_image.header.stamp = rospy.Time.now()
         ros_depth_image.header.stamp = rospy.Time.now()
         img_pub.publish(ros_color_image)
