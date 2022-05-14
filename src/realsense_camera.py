@@ -44,6 +44,9 @@ def main():
     depth_pub = rospy.Publisher('/camera/color/depth_raw', Image, queue_size=1)
     bridge = CvBridge()
 
+    crop_height = 124
+    crop = 0
+
     while not rospy.is_shutdown():
         frames = pipeline.wait_for_frames()
         depth_frame = frames.get_depth_frame()
@@ -52,8 +55,12 @@ def main():
         depth_image = np.asanyarray(depth_frame.get_data())
         color_image = np.asanyarray(color_frame.get_data())
 
-        resized_color_image = cv2.resize(np.array(color_image), (64,64), interpolation=cv2.INTER_AREA)
-        resized_depth_image = cv2.resize(np.array(depth_image), (64,64), interpolation=cv2.INTER_AREA)
+        # print(color_image.shape)
+        color_image = color_image[crop_height:480, crop+90:480+90-crop]
+        depth_image = depth_image[crop_height:480, crop+90:480+90-crop]
+
+        resized_color_image = cv2.resize(np.array(color_image), (128,128), interpolation=cv2.INTER_AREA)
+        resized_depth_image = cv2.resize(np.array(depth_image), (128,128), interpolation=cv2.INTER_AREA)
 
         ros_color_image = bridge.cv2_to_imgmsg(np.array(resized_color_image), "bgr8")
         ros_depth_image = bridge.cv2_to_imgmsg(np.array(resized_depth_image), "passthrough")
