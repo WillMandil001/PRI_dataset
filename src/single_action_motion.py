@@ -49,7 +49,7 @@ class FrankaRobot(object):
         self.move_group.set_max_velocity_scaling_factor(0.10)  # scaling down velocity
         self.move_group.set_max_acceleration_scaling_factor(0.025)  # scaling down acceleration
         self.move_group.allow_replanning(True)
-        self.move_group.set_num_planning_attempts(10)
+        self.move_group.set_num_planning_attempts(50)  # was 10
         self.move_group.set_goal_position_tolerance(0.05)
         self.move_group.set_goal_orientation_tolerance(0.1)
 
@@ -68,7 +68,8 @@ class FrankaRobot(object):
         self.bucket_center_z = 0.05
         self.plane_width = 0.001
 
-        self.start_joint_pose  = [-1.5582958590490317, 1.5338252153731227, 1.4436745717079291, -1.9266593425650345, -1.585236271994511, 1.7241992764896417, 1.163573228574489]
+        # self.start_joint_pose  = [-1.5582958590490317, 1.5338252153731227, 1.4436745717079291, -1.9266593425650345, -1.585236271994511, 1.7241992764896417, 1.163573228574489]
+        self.start_joint_pose  = [-1.5581101927305572, 1.5336645008388319, 1.446202119070332, -1.9271189652325813, -1.5845098768066816, 1.7244407136175368, 1.1638548101548194]
         self.intermediate_joint_pose = [-1.5075874511275376, 1.5628152434993339, 1.7488304869911, -2.2568651993567483, -1.4742872962752978, 1.4788165258321568, 1.625300617218406]
         self.finish_task_pose = [0.5482443163500694, 0.12686563149671773, 0.17835713843348572, -0.9189951780140059, 0.3934372105104041, -0.017203839819053317, 0.018948669300987524]
 
@@ -78,8 +79,8 @@ class FrankaRobot(object):
         self.generate_single_motion()
 
         self.num_trials = 100
-        self.object_number = 1
-        self.datasave_folder = "/vol/hd/PRI_DATASETS/Dataset3_MarkedHeavyBox/train/"
+        self.object_number = 9
+        self.datasave_folder = "/vol/hd/PRI_DATASETS/Dataset3_MarkedHeavyBox/test/"
 
         self.box_shape()
         rospy.sleep(2)
